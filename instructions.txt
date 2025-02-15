@@ -1,0 +1,9 @@
+.\venv\Scripts\activate
+
+# backend start server
+cd backend
+uvicorn main:app --reload
+
+# frontend start server
+cd frontend
+npm start

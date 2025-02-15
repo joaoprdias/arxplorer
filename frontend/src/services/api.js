@@ -3,13 +3,13 @@ import axios from 'axios';
 const BASE_URL = 'http://127.0.0.1:8000'; // Backend URL
 
 // Fetch articles from Arxiv
-export const fetchArxivArticles = async (query, maxResults = 10) => {
+export const fetchArxivArticles = async (query, maxResults = 10, sortBy = 'relevance') => {
   try {
     const response = await axios.get(`${BASE_URL}/arxiv/`, {
       params: {
         query,
         max_results: maxResults,
-        sort_by: 'relevance',
+        sort_by: sortBy,
       },
     });
     return response.data;
@@ -19,15 +19,27 @@ export const fetchArxivArticles = async (query, maxResults = 10) => {
   }
 };
 
-// Fetch keywords for the articles
-export const fetchKeywords = async (articles) => {
+export const fetchKeywords = async (articles, top_n = 10) => {
   try {
     const response = await axios.post(`${BASE_URL}/analysis/keywords`, {
-      articles,
+      df: articles, // A lista de artigos enviada no corpo
+      top_n,        // O parâmetro "top_n"
     });
     return response.data;
   } catch (error) {
-    console.error('Error fetching keywords:', error);
+    console.error("Error fetching keywords:", error);
     throw error;
+  }
+};
+
+export const fetchTrends = async (articles) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/analysis/trends`, {
+      df: articles, // Envia os artigos no corpo da requisição
+    });
+    return response.data; // Retorna os dados recebidos do backend
+  } catch (error) {
+    console.error("Error fetching trends:", error);
+    throw error; // Propaga o erro para tratamento no componente
   }
 };

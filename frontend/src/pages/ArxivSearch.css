@@ -1,0 +1,136 @@
+.arxiv-search-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .main-title {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 10px;
+  }
+  
+  .subtitle {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+  }
+  
+  .search-section {
+    margin-bottom: 30px;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #34495e;
+    margin-bottom: 15px;
+  }
+  
+  .search-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .input {
+    flex: 1;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .input[type="number"] {
+    max-width: 120px;
+  }
+  
+  .dropdown {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-width: 150px;
+  }
+  
+  .search-button {
+    background-color: #555; /* Cinza elegante */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  
+  .search-button:hover {
+    background-color: #444; /* Escurece no hover */
+  }
+  
+  .results-box {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #fdfdfd; /* Fundo branco suave */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+  
+  .results-scroll {
+    max-height: 600px; /* Caixa maior */
+    overflow-y: auto; /* Scroll interno */
+  }
+  
+  .results-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #fff;
+    border-radius: 10px; /* Bordas arredondadas */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Sombra mais leve */
+  }
+  
+  .results-table th {
+    background-color: #f4f4f4; /* Fundo neutro para o cabeçalho */
+    color: #555; /* Texto cinza escuro */
+    font-weight: bold;
+    text-align: left;
+    padding: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .results-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee; /* Separador suave */
+  }
+  
+  .results-table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Linhas alternadas cinza claro */
+  }
+  
+  .results-table tr:hover {
+    background-color: #f2f2f2; /* Realce ao passar o cursor */
+  }
+  
+  .article-link {
+    color: #555; /* Cor neutra para os links */
+    text-decoration: none;
+  }
+  
+  .article-link:hover {
+    text-decoration: underline;
+    color: #333; /* Link escurece no hover */
+  }
+  

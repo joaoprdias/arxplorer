@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { fetchArxivArticles } from "../services/api"; // Função já existente no api.js
+import { useNavigate } from "react-router-dom"; 
+import { fetchArxivArticles } from "../services/api"; 
 import "./ArxivSearch.css";
 
 function ArxivSearch() {
+  const navigate = useNavigate(); // Hook para navegação
   const [query, setQuery] = useState(""); // Query do utilizador
   const [maxResults, setMaxResults] = useState(10); // Número de resultados
   const [sortBy, setSortBy] = useState("relevance"); // Critério de ordenação
@@ -117,6 +119,16 @@ function ArxivSearch() {
           </>
         )}
       </section>
+
+      {/* Botão para voltar à homepage */}
+      <div className="home-button-container">
+        <button
+          className="home-button"
+          onClick={() => navigate("/")} // Navegar para a homepage
+        >
+          Go to Homepage
+        </button>
+      </div>
     </div>
   );
 }

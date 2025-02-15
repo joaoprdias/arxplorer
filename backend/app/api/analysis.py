@@ -11,9 +11,6 @@ def extract_keywords_from_articles(
     top_n: int = Body(10, description="Number of keywords to extract")
 ):
     try:
-        print("Received df:", df)
-        print("Received top_n:", top_n)
-
         # Verifica se a lista de artigos está vazia
         if not df:
             raise HTTPException(status_code=400, detail="The 'df' field must not be empty.")
@@ -42,7 +39,9 @@ def filter_articles(df: list[dict], keywords: list[str]):
     return filtered_df.to_dict(orient="records")
 
 @router.post("/trends", summary="Analyze publication trends")
-def get_publication_trends(df: list[dict]):
+def get_publication_trends(
+    df: List[Dict] = Body(..., description="List of articles to analyze")
+    ):
     """
     Analyze publication trends over time.
     """
@@ -51,7 +50,10 @@ def get_publication_trends(df: list[dict]):
     return trends.to_dict(orient="records")
 
 @router.post("/authors", summary="Get top authors")
-def get_top_authors(df: list[dict], top_n: int = 10):
+def get_top_authors(
+    df: List[Dict] = Body(..., description="List of articles to analyze"), 
+    top_n: int = Body(10, description="Number of keywords to extract")
+):
     """
     Get the most frequently mentioned authors from the dataset.
     """

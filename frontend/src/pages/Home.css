@@ -1,97 +1,130 @@
 /* Geral */
 .home-container {
-    font-family: Arial, sans-serif;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    color: #333;
-  }
-  
-  /* Header */
-  .home-header {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-  
-  .home-title {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #2c3e50;
-  }
-  
-  .home-subtitle {
-    font-size: 1.2rem;
-    color: #7f8c8d;
-  }
-  
-  /* Secção principal */
-  .home-section {
-    margin-bottom: 40px;
-  }
-  
-  .home-section-title {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #34495e;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  /* Grid de funcionalidades */
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-  }
-  
-  /* Cartão de funcionalidade */
-  .feature-card {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-  
-  .feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-  }
-  
-  .feature-title {
-    font-size: 1.5rem;
-    color: #2c3e50;
-    margin-bottom: 10px;
-  }
-  
-  .feature-description {
-    font-size: 1rem;
-    color: #7f8c8d;
-    margin-bottom: 20px;
-  }
-  
-  /* Botão de funcionalidade */
-  .feature-button {
-    background-color: #1abc9c;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s;
-  }
-  
-  .feature-button:hover {
-    background-color: #16a085;
-  }
-  
-  /* Rodapé */
-  .home-footer {
-    text-align: center;
-    font-size: 0.9rem;
-    color: #7f8c8d;
-    margin-top: 40px;
-  }  
+  font-family: "Arial", sans-serif;
+  color: #333;
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Garante que ocupa toda a altura da janela */
+}
+
+/* Hero Section */
+.home-hero {
+  position: relative;
+  flex: 1; /* Faz a seção hero ocupar o espaço disponível */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Garante que a imagem cobre toda a área */
+  z-index: 1;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Overlay escuro para legibilidade */
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  gap: 40px; /* Espaçamento entre o texto e os quadros */
+}
+
+.hero-content {
+  text-align: center;
+  color: white;
+  z-index: 3;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+/* Features Grid (sobre a imagem) */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px; /* Espaçamento entre os cartões */
+  z-index: 3;
+  width: 100%; /* Garante que ocupa toda a largura disponível */
+  max-width: 1200px; /* Limita a largura máxima */
+}
+
+.feature-card {
+  background-color: rgba(255, 255, 255, 0.9); /* Fundo branco semi-transparente */
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.feature-overlay-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.feature-title {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.feature-description {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.feature-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #666;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.feature-button:hover {
+  background-color: #444;
+}
+
+/* Footer */
+.home-footer {
+  background-color: #f0f0f0;
+  padding: 20px;
+  text-align: center;
+  color: #777;
+  border-top: 1px solid #ddd;
+  flex-shrink: 0; /* Garante que o footer fique fixo no final */
+}
+
+.home-footer strong {
+  color: #333;
+}

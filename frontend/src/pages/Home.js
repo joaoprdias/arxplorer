@@ -1,65 +1,63 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Home.css";
+import unsplashFotoHome1 from "../assets/unsplash_foto_home_1.jpg"; // Importando a imagem local
 
 function Home() {
   const navigate = useNavigate();
 
   return (
     <div className="home-container">
-      <header className="home-header">
-        <h1 className="home-title">Welcome to Arxiv Explorer</h1>
-        <p className="home-subtitle">
-          Discover, analyze, and explore scientific articles with ease.
-        </p>
-      </header>
-
-      <section className="home-section">
-        <h2 className="home-section-title">Main Features</h2>
-        <div className="features-grid">
-          <div className="feature-card">
-            <h3 className="feature-title">Search Articles</h3>
-            <p className="feature-description">
-              Use our powerful search tool to find scientific articles from Arxiv. Filter by query, results, and sorting criteria.
+      {/* Hero Section */}
+      <section className="home-hero">
+        <img src={unsplashFotoHome1} alt="Scientific exploration" className="hero-image" />
+        <div className="hero-overlay">
+          <div className="hero-content">
+            <h1 className="hero-title">arXplorer</h1>
+            <p className="hero-subtitle">
+              Discover, analyze, and cluster scientific research articles effortlessly.
             </p>
-            <button
-              className="feature-button"
+          </div>
+          <div className="features-grid">
+            <div
+              className="feature-card feature-overlay-card"
               onClick={() => navigate("/arxiv")}
             >
-              Explore Articles
-            </button>
-          </div>
-          <div className="feature-card">
-            <h3 className="feature-title">Analyze Keywords</h3>
-            <p className="feature-description">
-              Analyze the most frequent keywords and topics in scientific articles.
-            </p>
-            <button
-              className="feature-button"
+              <h3 className="feature-title">🔍 Search Articles</h3>
+              <p className="feature-description">
+                Use advanced search tools to find articles by query, filter, and sorting criteria.
+              </p>
+              <button className="feature-button">Explore Now</button>
+            </div>
+            <div
+              className="feature-card feature-overlay-card"
               onClick={() => navigate("/analysis")}
             >
-              Analyze Keywords
-            </button>
-          </div>
-          <div className="feature-card">
-            <h3 className="feature-title">Cluster Articles</h3>
-            <p className="feature-description">
-              Group articles into thematic clusters for deeper insights.
-            </p>
-            <button
-              className="feature-button"
+              <h3 className="feature-title">📊 Analyze Keywords</h3>
+              <p className="feature-description">
+                Extract and visualize key topics and trends in research publications.
+              </p>
+              <button className="feature-button">Analyze Now</button>
+            </div>
+            <div
+              className="feature-card feature-overlay-card"
               onClick={() => navigate("/clustering")}
             >
-              Cluster Articles
-            </button>
+              <h3 className="feature-title">🧠 Cluster Articles</h3>
+              <p className="feature-description">
+                Group articles into meaningful clusters for deeper insights and understanding.
+              </p>
+              <button className="feature-button">Start Clustering</button>
+            </div>
           </div>
         </div>
       </section>
 
+      {/* Footer */}
       <footer className="home-footer">
         <p>
-          Built for exploring scientific knowledge by João Dias and David Franco (ISCTE). Powered by FastAPI
-          and React.
+          Built by <strong>João Dias</strong> and <strong>David Franco</strong> (ISCTE). Powered by{" "}
+          <strong>FastAPI</strong> and <strong>React</strong>.
         </p>
       </footer>
     </div>

@@ -1,14 +1,30 @@
 import React, { useState } from "react";
-import { fetchArxivArticles, fetchKeywords } from "../services/api";
+import { useNavigate } from "react-router-dom"; 
+import { fetchArxivArticles, fetchKeywords, fetchTrends, fetchAuthors } from "../services/api";
+import {
+  BarChart,
+  Bar,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  CartesianGrid,
+} from "recharts";
 import "./KeywordAnalysis.css";
 
 function KeywordAnalysis() {
+  const navigate = useNavigate(); // Hook para navegação
   const [query, setQuery] = useState("");
   const [maxResults, setMaxResults] = useState(10);
   const [sortBy, setSortBy] = useState("relevance");
-  const [topN, setTopN] = useState(10);
+  const [topN, setTopN] = useState(25);
+  const [topAuthorsN, setTopAuthorsN] = useState(10);
   const [loading, setLoading] = useState(false);
   const [keywords, setKeywords] = useState({ unigrams: [], bigrams: [], trigrams: [] });
+  const [trendData, setTrendData] = useState([]);
+  const [authorData, setAuthorData] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
 
   const handleAnalyze = async () => {
@@ -18,8 +34,15 @@ function KeywordAnalysis() {
     try {
       const fetchedArticles = await fetchArxivArticles(query, maxResults, sortBy);
       setHasSearched(true);
+
       const keywordData = await fetchKeywords(fetchedArticles, topN);
       setKeywords(keywordData);
+
+      const trends = await fetchTrends(fetchedArticles);
+      setTrendData(trends);
+
+      const authors = await fetchAuthors(fetchedArticles, topAuthorsN);
+      setAuthorData(authors);
     } catch (err) {
       console.error("Something went wrong:", err);
     } finally {
@@ -35,8 +58,27 @@ function KeywordAnalysis() {
         const fetchedArticles = await fetchArxivArticles(query, maxResults, sortBy);
         const keywordData = await fetchKeywords(fetchedArticles, value);
         setKeywords(keywordData);
+
+        const authors = await fetchAuthors(fetchedArticles, topAuthorsN);
+        setAuthorData(authors);
       } catch (err) {
-        console.error("Something went wrong while updating keywords:", err);
+        console.error("Something went wrong while updating keywords or authors:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
+  const handleTopAuthorsNChange = async (value) => {
+    setTopAuthorsN(value);
+    if (hasSearched) {
+      setLoading(true);
+      try {
+        const fetchedArticles = await fetchArxivArticles(query, maxResults, sortBy);
+        const authors = await fetchAuthors(fetchedArticles, value);
+        setAuthorData(authors);
+      } catch (err) {
+        console.error("Something went wrong while updating authors:", err);
       } finally {
         setLoading(false);
       }
@@ -92,11 +134,7 @@ function KeywordAnalysis() {
               <option value="lastUpdatedDate">Last Updated Date</option>
             </select>
           </div>
-          <button
-            className="analyze-button"
-            onClick={handleAnalyze}
-            disabled={loading}
-          >
+          <button className="analyze-button" onClick={handleAnalyze} disabled={loading}>
             {loading ? "Processing..." : "Search"}
           </button>
         </div>
@@ -104,23 +142,48 @@ function KeywordAnalysis() {
 
       {hasSearched && (
         <div className="box-container">
-          <section className="topN-section">
-            <div className="input-group">
-              <label htmlFor="topN">Top N Keywords</label>
-              <input
-                id="topN"
-                type="number"
-                value={topN}
-                onChange={(e) => handleTopNChange(Number(e.target.value))}
-                placeholder="Top N Keywords"
-                className="input"
-                min={1}
-              />
-            </div>
+          <section className="chart-section">
+            <h2 className="section-title">Trends Chart</h2>
+            {trendData.length > 0 ? (
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={trendData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="Published_Year" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="Publication_Count" fill="#555" />
+                  <Line
+                    type="monotone"
+                    dataKey="Publication_Count"
+                    stroke="#ff7300"
+                    strokeWidth={2}
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            ) : (
+              <p>No trend data available.</p>
+            )}
           </section>
 
           <section className="results-section">
             <h2 className="section-title">Keyword Results</h2>
+
+            <section className="topN-section">
+              <div className="input-group">
+                <label htmlFor="topN">Top N Keywords</label>
+                <input
+                  id="topN"
+                  type="number"
+                  value={topN}
+                  onChange={(e) => handleTopNChange(Number(e.target.value))}
+                  placeholder="Top N Keywords"
+                  className="input"
+                  min={1}
+                />
+              </div>
+            </section>
+
             <div className="results-grid">
               <div className="result-card">
                 <h3 className="result-title">Unigrams</h3>
@@ -175,8 +238,58 @@ function KeywordAnalysis() {
               </div>
             </div>
           </section>
+
+          <section className="authors-section">
+            <h2 className="section-title">Top Authors</h2>
+            <div className="top-authors-section">
+              <div className="input-group">
+                <label htmlFor="topAuthorsN">Top N Authors</label>
+                <input
+                  id="topAuthorsN"
+                  type="number"
+                  value={topAuthorsN}
+                  onChange={(e) => handleTopAuthorsNChange(Number(e.target.value))}
+                  placeholder="Top N Authors"
+                  className="input"
+                  min={1}
+                />
+              </div>
+            </div>
+            {authorData.length > 0 ? (
+              <div className="authors-table-container">
+                <table className="authors-table">
+                  <thead>
+                    <tr>
+                      <th>Author</th>
+                      <th>Publication Count</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {authorData.map((author, index) => (
+                      <tr key={index}>
+                        <td>{author.Author}</td>
+                        <td>{author.Publication_Count}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <p>No authors found.</p>
+            )}
+          </section>
         </div>
       )}
+
+      {/* Botão para voltar à homepage */}
+      <div className="home-button-container">
+        <button
+          className="home-button"
+          onClick={() => navigate("/")} // Navegar para a homepage
+        >
+          Go to Homepage
+        </button>
+      </div>
     </div>
   );
 }

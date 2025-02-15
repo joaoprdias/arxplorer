@@ -63,7 +63,7 @@
   }
   
   .search-button {
-    background-color: #555; /* Cinza elegante */
+    background-color: #555; 
     color: white;
     padding: 10px 20px;
     border: none;
@@ -73,21 +73,21 @@
   }
   
   .search-button:hover {
-    background-color: #444; /* Escurece no hover */
+    background-color: #444; 
   }
   
   .results-box {
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 20px;
-    background-color: #fdfdfd; /* Fundo branco suave */
+    background-color: #fdfdfd; 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
   }
   
   .results-scroll {
-    max-height: 600px; /* Caixa maior */
-    overflow-y: auto; /* Scroll interno */
+    max-height: 600px; 
+    overflow-y: auto; 
   }
   
   .results-table {
@@ -95,13 +95,13 @@
     border-collapse: separate;
     border-spacing: 0;
     background-color: #fff;
-    border-radius: 10px; /* Bordas arredondadas */
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Sombra mais leve */
+    border-radius: 10px; 
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); 
   }
   
   .results-table th {
-    background-color: #f4f4f4; /* Fundo neutro para o cabeçalho */
-    color: #555; /* Texto cinza escuro */
+    background-color: #f4f4f4; 
+    color: #555; 
     font-weight: bold;
     text-align: left;
     padding: 15px;
@@ -113,24 +113,44 @@
   
   .results-table td {
     padding: 15px;
-    border-bottom: 1px solid #eee; /* Separador suave */
+    border-bottom: 1px solid #eee; 
   }
   
   .results-table tr:nth-child(even) {
-    background-color: #f9f9f9; /* Linhas alternadas cinza claro */
+    background-color: #f9f9f9; 
   }
   
   .results-table tr:hover {
-    background-color: #f2f2f2; /* Realce ao passar o cursor */
+    background-color: #f2f2f2;
   }
   
   .article-link {
-    color: #555; /* Cor neutra para os links */
+    color: #555; 
     text-decoration: none;
   }
   
   .article-link:hover {
     text-decoration: underline;
-    color: #333; /* Link escurece no hover */
+    color: #333; 
   }
   
+  .home-button-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .home-button {
+    padding: 12px 20px;
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .home-button:hover {
+    background-color: #555;
+  }

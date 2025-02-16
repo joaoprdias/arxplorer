@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import ArxivSearch from "./pages/ArxivSearch";
 import KeywordAnalysis from "./pages/KeywordAnalysis";
+import SimilarArticles from "./pages/SimilarArticles";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/arxiv" element={<ArxivSearch />} />
         <Route path="/analysis" element={<KeywordAnalysis />} />
+        <Route path="/clustering" element={<SimilarArticles />} />
       </Routes>
     </Router>
   );

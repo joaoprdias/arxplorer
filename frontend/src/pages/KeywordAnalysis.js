@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; 
+import React, { useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { fetchArxivArticles, fetchKeywords, fetchTrends, fetchAuthors } from "../services/api";
 import {
   BarChart,
   Bar,
-  Line,
   XAxis,
   YAxis,
   Tooltip,
@@ -15,7 +14,7 @@ import {
 import "./KeywordAnalysis.css";
 
 function KeywordAnalysis() {
-  const navigate = useNavigate(); // Hook para navegação
+  const navigate = useNavigate();
   const [query, setQuery] = useState("");
   const [maxResults, setMaxResults] = useState(10);
   const [sortBy, setSortBy] = useState("relevance");
@@ -26,6 +25,7 @@ function KeywordAnalysis() {
   const [trendData, setTrendData] = useState([]);
   const [authorData, setAuthorData] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
+  const [articles, setArticles] = useState([]);
 
   const handleAnalyze = async () => {
     setLoading(true);
@@ -33,6 +33,7 @@ function KeywordAnalysis() {
 
     try {
       const fetchedArticles = await fetchArxivArticles(query, maxResults, sortBy);
+      setArticles(fetchedArticles);
       setHasSearched(true);
 
       const keywordData = await fetchKeywords(fetchedArticles, topN);
@@ -50,32 +51,27 @@ function KeywordAnalysis() {
     }
   };
 
-  const handleTopNChange = async (value) => {
+  const handleTopNChange = useCallback(async (value) => {
     setTopN(value);
     if (hasSearched) {
       setLoading(true);
       try {
-        const fetchedArticles = await fetchArxivArticles(query, maxResults, sortBy);
-        const keywordData = await fetchKeywords(fetchedArticles, value);
+        const keywordData = await fetchKeywords(articles, value);
         setKeywords(keywordData);
-
-        const authors = await fetchAuthors(fetchedArticles, topAuthorsN);
-        setAuthorData(authors);
       } catch (err) {
-        console.error("Something went wrong while updating keywords or authors:", err);
+        console.error("Something went wrong while updating keywords:", err);
       } finally {
         setLoading(false);
       }
     }
-  };
+  }, [articles, hasSearched]);
 
-  const handleTopAuthorsNChange = async (value) => {
+  const handleTopAuthorsNChange = useCallback(async (value) => {
     setTopAuthorsN(value);
     if (hasSearched) {
       setLoading(true);
       try {
-        const fetchedArticles = await fetchArxivArticles(query, maxResults, sortBy);
-        const authors = await fetchAuthors(fetchedArticles, value);
+        const authors = await fetchAuthors(articles, value);
         setAuthorData(authors);
       } catch (err) {
         console.error("Something went wrong while updating authors:", err);
@@ -83,7 +79,7 @@ function KeywordAnalysis() {
         setLoading(false);
       }
     }
-  };
+  }, [articles, hasSearched]);
 
   return (
     <div className="keyword-analysis-container">
@@ -153,12 +149,6 @@ function KeywordAnalysis() {
                   <Tooltip />
                   <Legend />
                   <Bar dataKey="Publication_Count" fill="#555" />
-                  <Line
-                    type="monotone"
-                    dataKey="Publication_Count"
-                    stroke="#ff7300"
-                    strokeWidth={2}
-                  />
                 </BarChart>
               </ResponsiveContainer>
             ) : (
@@ -281,11 +271,10 @@ function KeywordAnalysis() {
         </div>
       )}
 
-      {/* Botão para voltar à homepage */}
       <div className="home-button-container">
         <button
           className="home-button"
-          onClick={() => navigate("/")} // Navegar para a homepage
+          onClick={() => navigate("/")}
         >
           Go to Homepage
         </button>

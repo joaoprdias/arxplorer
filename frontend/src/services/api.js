@@ -54,3 +54,17 @@ export const fetchAuthors = async (articles, top_n = 10) => {
     throw error;
   }
 };
+
+export const fetchSimilarArticles = async (articles, articleUrl, top_n = 10) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/clustering/similar`, {
+      df: articles, // Lista de artigos no corpo da requisição
+      article_url: articleUrl, // URL do artigo para encontrar similares
+      top_n, // Número máximo de artigos similares a retornar
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching similar articles:", error);
+    throw error;
+  }
+};

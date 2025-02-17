@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import ArxivSearch from "./pages/ArxivSearch";
 import KeywordAnalysis from "./pages/KeywordAnalysis";
 import SimilarArticles from "./pages/SimilarArticles";
+import Summarization from "./pages/Summarization";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/arxiv" element={<ArxivSearch />} />
         <Route path="/analysis" element={<KeywordAnalysis />} />
         <Route path="/clustering" element={<SimilarArticles />} />
+        <Route path="/summarization" element={<Summarization />} />
       </Routes>
     </Router>
   );

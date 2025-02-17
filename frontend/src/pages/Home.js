@@ -19,35 +19,34 @@ function Home() {
             </p>
           </div>
           <div className="features-grid">
-            <div
-              className="feature-card feature-overlay-card"
-              onClick={() => navigate("/arxiv")}
-            >
-              <h3 className="feature-title">🔍 Search Articles</h3>
+            <div className="feature-card feature-overlay-card" onClick={() => navigate("/arxiv")}>
+              <h3 className="feature-title">🔍 Search</h3>
               <p className="feature-description">
                 Use advanced search tools to find articles by query, filter, and sorting criteria.
               </p>
               <button className="feature-button">Explore Now</button>
             </div>
-            <div
-              className="feature-card feature-overlay-card"
-              onClick={() => navigate("/analysis")}
-            >
-              <h3 className="feature-title">📊 Analyze Keywords</h3>
+            <div className="feature-card feature-overlay-card" onClick={() => navigate("/analysis")}>
+              <h3 className="feature-title">📊 Analyze</h3>
               <p className="feature-description">
                 Extract and visualize key topics and trends in research publications.
               </p>
               <button className="feature-button">Analyze Now</button>
             </div>
-            <div
-              className="feature-card feature-overlay-card"
-              onClick={() => navigate("/clustering")}
-            >
-              <h3 className="feature-title">🧠 Cluster Articles</h3>
+            <div className="feature-card feature-overlay-card" onClick={() => navigate("/clustering")}>
+              <h3 className="feature-title">🧠 Cluster</h3>
               <p className="feature-description">
                 Group articles into meaningful clusters for deeper insights and understanding.
               </p>
               <button className="feature-button">Start Clustering</button>
+            </div>
+            {/* Novo quadrado para o Summarization */}
+            <div className="feature-card feature-overlay-card" onClick={() => navigate("/summarization")}>
+              <h3 className="feature-title">✍️ Summarize</h3>
+              <p className="feature-description">
+                Generate concise summaries of the most relevant scientific articles automatically.
+              </p>
+              <button className="feature-button">Summarize Now</button>
             </div>
           </div>
         </div>

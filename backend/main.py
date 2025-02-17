@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api import arxiv_router, analysis_router, clustering_router
+from app.api import arxiv_router, analysis_router, clustering_router, summary_router
 from app.core.config import settings  # Importa as configurações do Settings
 
 # Inicializa a aplicação FastAPI
@@ -22,3 +22,4 @@ app.add_middleware(
 app.include_router(arxiv_router, prefix="/arxiv", tags=["Arxiv"])
 app.include_router(analysis_router, prefix="/analysis", tags=["Analysis"])
 app.include_router(clustering_router, prefix="/clustering", tags=["Clustering"])
+app.include_router(summary_router, prefix="/summary", tags=["Summary"])

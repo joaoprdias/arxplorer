@@ -10,6 +10,9 @@ import {
   Legend,
   ResponsiveContainer,
   CartesianGrid,
+  PieChart,
+  Pie,
+  Cell
 } from "recharts";
 import "./KeywordAnalysis.css";
 
@@ -26,6 +29,8 @@ function KeywordAnalysis() {
   const [authorData, setAuthorData] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
   const [articles, setArticles] = useState([]);
+  const [categoryData, setCategoryData] = useState([]);
+  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#A28DFF", "#FF6666", "#82CA9D"];
 
   const handleAnalyze = async () => {
     setLoading(true);
@@ -44,6 +49,40 @@ function KeywordAnalysis() {
 
       const authors = await fetchAuthors(fetchedArticles, topAuthorsN);
       setAuthorData(authors);
+
+      // Processar categorias primárias
+      const categoryCounts = {};
+      fetchedArticles.forEach((article) => {
+        const category = article.Primary_Category;
+        if (categoryCounts[category]) {
+          categoryCounts[category]++;
+        } else {
+          categoryCounts[category] = 1;
+        }
+      });
+
+      // Ordenar categorias por contagem
+      const sortedCategories = Object.keys(categoryCounts).sort((a, b) => categoryCounts[b] - categoryCounts[a]);
+
+      // Manter as 10 principais categorias e agrupar o restante em "Others"
+      const topCategories = sortedCategories.slice(0, 10);
+      const otherCategoriesCount = sortedCategories.slice(10).reduce((acc, category) => acc + categoryCounts[category], 0);
+
+      const formattedCategories = topCategories.map((category, index) => ({
+        name: category,
+        value: categoryCounts[category],
+        color: COLORS[index % COLORS.length],
+      }));
+
+      if (otherCategoriesCount > 0) {
+        formattedCategories.push({
+          name: "others",
+          value: otherCategoriesCount,
+          color: COLORS[10],
+        });
+      }
+
+      setCategoryData(formattedCategories);
     } catch (err) {
       console.error("Something went wrong:", err);
     } finally {
@@ -268,6 +307,35 @@ function KeywordAnalysis() {
               <p>No authors found.</p>
             )}
           </section>
+
+          {/* Pie Chart - Primary Categories */}
+          <section className="chart-section">
+            <h2 className="section-title">Primary Categories</h2>
+            {categoryData.length > 0 ? (
+              <ResponsiveContainer width="100%" height={400}>
+                <PieChart>
+                  <Pie
+                    data={categoryData}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={150}
+                    label
+                  >
+                    {categoryData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
+            ) : (
+              <p>No category data available.</p>
+            )}
+          </section>
+
         </div>
       )}
 

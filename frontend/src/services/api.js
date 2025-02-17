@@ -68,3 +68,16 @@ export const fetchSimilarArticles = async (articles, articleUrl, top_n = 10) => 
     throw error;
   }
 };
+
+export const fetchSummaries = async (articles, n = 3) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/summary/summarize`, {
+      df: articles, // Lista de artigos no corpo da requisição
+      n, // Número máximo de artigos similares a retornar
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching summaries:", error);
+    throw error;
+  }
+};

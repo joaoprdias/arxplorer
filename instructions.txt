@@ -1,4 +1,13 @@
+# criar venv
+python -m venv venv
 .\venv\Scripts\activate
+
+# instalar ollama
+wsl --install
+# é preciso deixar a janela do wsl aberta
+curl -fsSL https://ollama.com/install.sh | sh
+ollama serve
+ollama pull llama2
 
 # backend start server
 cd backend

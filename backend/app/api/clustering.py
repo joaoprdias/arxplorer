@@ -6,7 +6,10 @@ from typing import List, Dict
 router = APIRouter()
 
 @router.post("/cluster", summary="Cluster articles into themes")
-def cluster_articles_into_themes(df: list[dict], n_clusters: int = 5):
+def cluster_articles_into_themes(
+    df: List[Dict] = Body(..., description="List of articles to analyze"), 
+    n_clusters: int = Body(5, description="Number of clusters do define")
+):
     """
     Cluster articles into thematic groups.
     """

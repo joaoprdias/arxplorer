@@ -81,3 +81,16 @@ export const fetchSummaries = async (articles, n = 3) => {
     throw error;
   }
 };
+
+export const clusterArticles = async (articles, n_clusters = 5) => {
+  try {
+    const response = await axios.post(`${BASE_URL}/clustering/cluster`, {
+      df: articles, // Lista de artigos no corpo da requisição
+      n_clusters, // Número de clusters
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error clustering articles:", error);
+    throw error;
+  }
+}

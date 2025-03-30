@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Home.css";
-import unsplashFotoHome1 from "../assets/unsplash_foto_home_1.jpg"; // Importando a imagem local
+import unsplashFotoHome1 from "../assets/unsplash_foto_home_1.jpg";
 
 function Home() {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ function Home() {
             <div className="feature-card feature-overlay-card" onClick={() => navigate("/arxiv")}>
               <h3 className="feature-title">🔍 Search</h3>
               <p className="feature-description">
-                Use advanced search tools to find articles by query, filter, and sorting criteria.
+                Use advanced search tools to find articles by query and sorting criteria.
               </p>
               <button className="feature-button">Explore Now</button>
             </div>
@@ -34,17 +34,23 @@ function Home() {
               <button className="feature-button">Analyze Now</button>
             </div>
             <div className="feature-card feature-overlay-card" onClick={() => navigate("/clustering")}>
+              <h3 className="feature-title">📐 Match</h3>
+              <p className="feature-description">
+                Cluster articles based on cosine similarity for topic-based grouping.
+              </p>
+              <button className="feature-button">View Similarities</button>
+            </div>
+            <div className="feature-card feature-overlay-card" onClick={() => navigate("/cluster")}>
               <h3 className="feature-title">🧠 Cluster</h3>
               <p className="feature-description">
-                Group articles into meaningful clusters for deeper insights and understanding.
+                Group research articles into clusters using different algorithms.
               </p>
               <button className="feature-button">Start Clustering</button>
             </div>
-            {/* Novo quadrado para o Summarization */}
             <div className="feature-card feature-overlay-card" onClick={() => navigate("/summarization")}>
               <h3 className="feature-title">✍️ Summarize</h3>
               <p className="feature-description">
-                Generate concise summaries of the most relevant scientific articles automatically.
+                Generate summaries of the most relevant scientific articles.
               </p>
               <button className="feature-button">Summarize Now</button>
             </div>

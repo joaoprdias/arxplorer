@@ -66,11 +66,11 @@
 /* Features Grid (sobre a imagem) */
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px; /* Espaçamento entre os cartões */
+  grid-template-columns: repeat(5, 1fr); /* 5 colunas fixas */
+  gap: 20px;
   z-index: 3;
-  width: 100%; /* Garante que ocupa toda a largura disponível */
-  max-width: 1200px; /* Limita a largura máxima */
+  width: 100%;
+  max-width: 1200px;
 }
 
 .feature-card {

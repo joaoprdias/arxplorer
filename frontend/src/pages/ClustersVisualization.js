@@ -109,15 +109,15 @@ const ClustersVisualization = () => {
 
   return (
     <div className="graph-container">
-      <h2>Visualização de Clusters</h2>
+      <h2>Cluster Visualization</h2>
       <div className="controls">
         <input
           type="text"
-          placeholder="Digite o título para análise"
+          placeholder="Enter search query (e.g., Machine Learning)"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <button onClick={handleAnalyze}>Analisar</button>
+        <button onClick={handleAnalyze}>Visualize</button>
       </div>
 
       <div className="bubble-container">
@@ -131,7 +131,7 @@ const ClustersVisualization = () => {
         className="home-button"
         onClick={() => navigate("/")}
       >
-        Voltar à Homepage
+        Go to Homepage
       </button>
     </div>
     </div>

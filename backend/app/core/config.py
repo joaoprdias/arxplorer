@@ -3,7 +3,7 @@ from typing import List
 
 class Settings(BaseSettings):
     app_name: str = "Arxiv API"
-    debug: bool = True
+    debug: bool = False
     arxiv_base_url: str = "http://export.arxiv.org/api/query"
     allowed_origins: List[str] = []  # Valor padrão caso o .env esteja vazio
 

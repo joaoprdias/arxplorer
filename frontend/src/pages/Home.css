@@ -66,11 +66,12 @@
 /* Features Grid (sobre a imagem) */
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 5 colunas fixas */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
   z-index: 3;
   width: 100%;
   max-width: 1200px;
+  justify-items: center; /* centraliza cada card */
 }
 
 .feature-card {
@@ -127,4 +128,8 @@
 
 .home-footer strong {
   color: #333;
+}
+
+.hide-summarize {
+  display: none;
 }

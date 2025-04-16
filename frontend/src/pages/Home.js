@@ -36,18 +36,18 @@ function Home() {
             <div className="feature-card feature-overlay-card" onClick={() => navigate("/clustering")}>
               <h3 className="feature-title">📐 Match</h3>
               <p className="feature-description">
-                Cluster articles based on cosine similarity for topic-based grouping.
+                Get the most similar articles based on cosine similarity for topic-based grouping.
               </p>
               <button className="feature-button">View Similarities</button>
             </div>
             <div className="feature-card feature-overlay-card" onClick={() => navigate("/cluster")}>
               <h3 className="feature-title">🧠 Cluster</h3>
               <p className="feature-description">
-                Group research articles into clusters using different algorithms.
+                Explore research articles by automatically grouping them into thematic clusters using k-means.
               </p>
               <button className="feature-button">Start Clustering</button>
             </div>
-            <div className="feature-card feature-overlay-card" onClick={() => navigate("/summarization")}>
+            <div className="feature-card feature-overlay-card hide-summarize" onClick={() => navigate("/summarization")}>
               <h3 className="feature-title">✍️ Summarize</h3>
               <p className="feature-description">
                 Generate summaries of the most relevant scientific articles.

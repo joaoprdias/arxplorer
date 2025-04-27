@@ -1,3 +1,7 @@
+import nltk
+nltk.download("stopwords")
+nltk.download("wordnet")
+
 import re
 import pandas as pd
 from nltk.corpus import stopwords

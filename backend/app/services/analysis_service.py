@@ -1,9 +1,7 @@
-import nltk
-nltk.download("stopwords")
-
 import pandas as pd
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import CountVectorizer
+from app.services.text_preprocessing import preprocess_text
 
 def extract_keywords(df: pd.DataFrame, top_n: int = 10):
     """
@@ -16,12 +14,11 @@ def extract_keywords(df: pd.DataFrame, top_n: int = 10):
     Returns:
         tuple: DataFrames para unigramas, bigramas e trigramas.
     """
-    combined_text = " ".join(df["Title"]) + " " + " ".join(df["Summary"])
-    stop_words = list(stopwords.words("english"))
+    combined_text = " ".join(df["Title"].apply(preprocess_text)) + " " + " ".join(df["Summary"].apply(preprocess_text))
 
-    vectorizer_uni = CountVectorizer(ngram_range=(1, 1), stop_words=stop_words)
-    vectorizer_bi = CountVectorizer(ngram_range=(2, 2), stop_words=stop_words)
-    vectorizer_tri = CountVectorizer(ngram_range=(3, 3), stop_words=stop_words)
+    vectorizer_uni = CountVectorizer(ngram_range=(1, 1))
+    vectorizer_bi = CountVectorizer(ngram_range=(2, 2))
+    vectorizer_tri = CountVectorizer(ngram_range=(3, 3))
 
     # Unigramas
     word_counts_uni = vectorizer_uni.fit_transform([combined_text])

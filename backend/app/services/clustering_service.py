@@ -1,7 +1,3 @@
-import nltk
-nltk.download("stopwords")
-nltk.download("wordnet")
-
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans

@@ -1,3 +1,7 @@
+import nltk
+nltk.download("stopwords")
+nltk.download("wordnet")
+
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
@@ -39,8 +43,7 @@ def find_similar_articles_with_url(df: pd.DataFrame, article_url: str, top_n: in
     if article_url not in df["Link"].values:
         raise ValueError("A URL fornecida não está no conjunto de dados.")
     
-    if "Processed_Summary" not in df.columns:
-        df["Processed_Summary"] = df["Summary"].apply(preprocess_text)
+    df["Processed_Summary"] = df["Summary"].apply(preprocess_text)
     
     article_index = df[df["Link"] == article_url].index[0]
     vectorizer = TfidfVectorizer()

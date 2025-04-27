@@ -132,46 +132,46 @@ function KeywordAnalysis() {
       <section className="search-section">
         <h2 className="section-title">Search Parameters</h2>
         <div className="search-controls">
-          <div className="input-group">
-            <label htmlFor="query">Search Query</label>
-            <input
-              id="query"
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Enter search query (e.g., Machine Learning)"
-              className="input"
-            />
-          </div>
-          <div className="input-group">
-            <label htmlFor="maxResults">Max Results</label>
-            <input
-              id="maxResults"
-              type="number"
-              value={maxResults}
-              onChange={(e) => setMaxResults(Number(e.target.value))}
-              placeholder="Max Results"
-              className="input"
-              min={1}
-              max={500}
-            />
-          </div>
-          <div className="input-group">
-            <label htmlFor="sortBy">Sort By</label>
-            <select
-              id="sortBy"
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="dropdown"
-            >
-              <option value="relevance">Relevance</option>
-              <option value="submittedDate">Submitted Date</option>
-              <option value="lastUpdatedDate">Last Updated Date</option>
-            </select>
-          </div>
-          <button className="analyze-button" onClick={handleAnalyze} disabled={loading}>
+          
+          <input
+            id="query"
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Enter search query (e.g., Machine Learning)"
+            className="input"
+          />
+          
+          <input
+            id="maxResults"
+            type="number"
+            value={maxResults}
+            onChange={(e) => setMaxResults(Number(e.target.value))}
+            placeholder="Max Results"
+            className="input"
+            min={1}
+            max={500}
+          />
+          
+          <select
+            id="sortBy"
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="dropdown"
+          >
+            <option value="relevance">Relevance</option>
+            <option value="submittedDate">Submitted Date</option>
+            <option value="lastUpdatedDate">Last Updated Date</option>
+          </select>
+          
+          <button
+            className="analyze-button"
+            onClick={handleAnalyze}
+            disabled={loading}
+          >
             {loading ? "Processing..." : "Search"}
           </button>
+
         </div>
       </section>
 

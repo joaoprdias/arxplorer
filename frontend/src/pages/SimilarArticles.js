@@ -69,42 +69,37 @@ function SimilarArticles() {
 
       <section className="box-container">
         <div className="search-controls">
-          <div className="input-group">
-            <label htmlFor="query">Search Query:</label>
-            <input
-              id="query"
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Enter a topic (e.g., Machine Learning)"
-              className="input"
-            />
-          </div>
-          <div className="input-group">
-            <label htmlFor="maxResults">Max Results:</label>
-            <input
-              id="maxResults"
-              type="number"
-              value={maxResults}
-              onChange={(e) => setMaxResults(Number(e.target.value))}
-              className="input"
-              min={1}
-              max={50}
-            />
-          </div>
-          <div className="input-group">
-            <label htmlFor="sortBy">Sort By:</label>
-            <select
-              id="sortBy"
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="dropdown"
-            >
-              <option value="relevance">Relevance</option>
-              <option value="submittedDate">Submitted Date</option>
-              <option value="lastUpdatedDate">Last Updated Date</option>
-            </select>
-          </div>
+          <input
+            id="query"
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Enter a topic (e.g., Machine Learning)"
+            className="input"
+          />
+
+          <input
+            id="maxResults"
+            type="number"
+            value={maxResults}
+            onChange={(e) => setMaxResults(Number(e.target.value))}
+            placeholder="Max Results"
+            className="input"
+            min={1}
+            max={50}
+          />
+
+          <select
+            id="sortBy"
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="dropdown"
+          >
+            <option value="relevance">Relevance</option>
+            <option value="submittedDate">Submitted Date</option>
+            <option value="lastUpdatedDate">Last Updated Date</option>
+          </select>
+
           <button
             className="search-button"
             onClick={handleSearchArticles}
@@ -212,7 +207,7 @@ function SimilarArticles() {
       <div className="home-button-container">
         <button
           className="home-button"
-          onClick={() => navigate("/")} // Navegar para a homepage
+          onClick={() => navigate("/")}
         >
           Go to Homepage
         </button>

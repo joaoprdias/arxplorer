@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const BASE_URL = 'http://127.0.0.1:8000'; // Backend URL
-const BASE_URL = 'https://arxplorer.onrender.com'; 
+// const BASE_URL = 'http://127.0.0.1:8000'; // Backend URL local
+const BASE_URL = 'https://arxplorer.onrender.com'; // Backend URL prod
 
 // Fetch articles from Arxiv
 export const fetchArxivArticles = async (query, maxResults = 10, sortBy = 'relevance') => {

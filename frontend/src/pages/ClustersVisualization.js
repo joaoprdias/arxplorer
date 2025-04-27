@@ -7,21 +7,24 @@ import "./ClustersVisualization.css";
 const ClustersVisualization = () => {
   const [query, setQuery] = useState("");
   const [clusters, setClusters] = useState([]);
-  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const svgRef = useRef(null);
-  const navigate = useNavigate(); // Hook para navegação
+  const navigate = useNavigate();
 
   const handleAnalyze = async () => {
+    setLoading(true);
     try {
-      const maxResults = 100; // Fixado em 100 instâncias
-      const sortBy = "relevance"; // Fixado em relevância
-      const nClusters = 5; // Fixado em 5 clusters
+      const maxResults = 100;
+      const sortBy = "relevance";
+      const nClusters = 5;
 
       const articlesResponse = await fetchArxivArticles(query, maxResults, sortBy);
       const clusteringResponse = await clusterArticles(articlesResponse, nClusters);
       setClusters(clusteringResponse);
     } catch (err) {
-      setError("Erro ao obter clusters ou artigos");
+      console.error("Error while trying to obtain clusters or articles", err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -40,7 +43,7 @@ const ClustersVisualization = () => {
       title: article.Title,
       cluster: article.Cluster,
       radius: 20 + Math.random() * 20,
-      color: `hsl(${(article.Cluster * 360) / 5}, 70%, 50%)`, // 5 clusters fixados
+      color: `hsl(${(article.Cluster * 360) / 5}, 70%, 50%)`,
     }));
 
     const truncateTitle = (title) => {
@@ -67,7 +70,7 @@ const ClustersVisualization = () => {
       .force("charge", d3.forceManyBody().strength(20))
       .force("center", d3.forceCenter(width / 2, height / 2))
       .force("collide", d3.forceCollide().radius((d) => d.radius + 15))
-      .force("x", d3.forceX((d) => (d.cluster * width) / 5).strength(0.4)) // 5 clusters fixados
+      .force("x", d3.forceX((d) => (d.cluster * width) / 5).strength(0.4))
       .force("y", d3.forceY(height / 2).strength(0.3))
       .on("tick", () => {
         container
@@ -84,10 +87,9 @@ const ClustersVisualization = () => {
               .style("opacity", 1)
               .html(`<strong>${truncateTitle(d.title)}</strong><br/>Cluster: ${d.cluster}`);
 
-            // Ajustar as coordenadas da tooltip com base na posição do SVG
-            const svgRect = svgRef.current.getBoundingClientRect(); // Posição do SVG na tela
-            const tooltipX = event.clientX - svgRect.left + 10; // Coordenada X relativa ao SVG
-            const tooltipY = event.clientY - svgRect.top + 15; // Coordenada Y relativa ao SVG
+            const svgRect = svgRef.current.getBoundingClientRect();
+            const tooltipX = event.clientX - svgRect.left + 10;
+            const tooltipY = event.clientY - svgRect.top + 15;
 
             tooltip
               .style("left", `${tooltipX}px`)
@@ -110,6 +112,7 @@ const ClustersVisualization = () => {
   return (
     <div className="graph-container">
       <h2>Cluster Visualization</h2>
+
       <div className="controls">
         <input
           type="text"
@@ -117,7 +120,9 @@ const ClustersVisualization = () => {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <button onClick={handleAnalyze}>Visualize</button>
+        <button onClick={handleAnalyze} disabled={loading}>
+          {loading ? "Processing..." : "Visualize"}
+        </button>
       </div>
 
       <div className="bubble-container">
@@ -125,15 +130,14 @@ const ClustersVisualization = () => {
         <div id="tooltip" className="tooltip"></div>
       </div>
 
-    {/* Botão para voltar à homepage no final da página */}
-    <div className="home-button-container">
-      <button
-        className="home-button"
-        onClick={() => navigate("/")}
-      >
-        Go to Homepage
-      </button>
-    </div>
+      <div className="home-button-container">
+        <button
+          className="home-button"
+          onClick={() => navigate("/")}
+        >
+          Go to Homepage
+        </button>
+      </div>
     </div>
   );
 };

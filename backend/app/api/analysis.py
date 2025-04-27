@@ -1,5 +1,5 @@
 from fastapi import Body, APIRouter, HTTPException
-from app.services.analysis_service import extract_keywords, analyze_publication_trends, filter_articles_by_keywords, top_authors
+from app.services.analysis_service import extract_keywords, analyze_publication_trends, top_authors
 import pandas as pd
 from typing import List, Dict
 
@@ -28,15 +28,6 @@ def extract_keywords_from_articles(
     except Exception as e:
         print("Error processing request:", e)
         raise HTTPException(status_code=500, detail="An error occurred while processing the request.")
-
-@router.post("/filter", summary="Filter articles by keywords")
-def filter_articles(df: list[dict], keywords: list[str]):
-    """
-    Filter articles based on the presence of specific keywords.
-    """
-    df = pd.DataFrame(df)
-    filtered_df = filter_articles_by_keywords(df, keywords)
-    return filtered_df.to_dict(orient="records")
 
 @router.post("/trends", summary="Analyze publication trends")
 def get_publication_trends(

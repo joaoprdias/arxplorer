@@ -124,7 +124,7 @@ function ArxivSearch() {
       <div className="home-button-container">
         <button
           className="home-button"
-          onClick={() => navigate("/")} // Navegar para a homepage
+          onClick={() => navigate("/")} 
         >
           Go to Homepage
         </button>

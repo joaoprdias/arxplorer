@@ -1,71 +1,92 @@
-/* Layout geral */
 .graph-container {
-    max-width: 1300px;
-    margin: auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    text-align: center;
-  }
-  
-  /* Controlos */
-  .controls {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .controls input,
-  .controls select,
-  .controls button {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-  }
-  
-  .controls button {
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  
-  .controls button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Container do SVG */
-  .bubble-container {
-    display: flex;
-    justify-content: center;
-    position: relative;
-  }
-  
-  svg {
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    cursor: grab;
-  }
-  
-  svg:active {
-    cursor: grabbing;
-  }
-  
-  /* Tooltip atualizado */
-  .tooltip {
-    position: absolute;
-    background: rgba(0, 0, 0, 0.85);
-    color: white;
-    padding: 6px 12px;
-    border-radius: 5px;
-    font-size: 14px;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.2s, transform 0.2s;
-    white-space: normal;
-    max-width: 250px;
-    word-wrap: break-word;
-  }  
+  max-width: 1300px;
+  margin: auto;
+  padding: 20px;
+  font-family: "Arial", sans-serif;
+  text-align: center;
+  color: #333;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.controls input,
+.controls select,
+.controls button {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.controls button {
+  background-color: #555;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.controls button:hover {
+  background-color: #444;
+}
+
+.bubble-container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+svg {
+  background: #fdfdfd;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: grab;
+}
+
+svg:active {
+  cursor: grabbing;
+}
+
+.tooltip {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  white-space: normal;
+  max-width: 250px;
+  word-wrap: break-word;
+  z-index: 10;
+}
+
+.home-button-container {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.home-button {
+  padding: 12px 20px;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.home-button:hover {
+  background-color: #555;
+}

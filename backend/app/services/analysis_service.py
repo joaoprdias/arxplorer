@@ -5,14 +5,14 @@ from app.services.text_preprocessing import preprocess_text
 
 def extract_keywords(df: pd.DataFrame, top_n: int = 10):
     """
-    Gera três DataFrames separados para palavras individuais, bigramas e trigramas mais frequentes.
+    Generates three separate DataFrames for the most frequent individual words, bigrams and trigrams.
 
     Args:
-        df (pd.DataFrame): DataFrame com os artigos.
-        top_n (int): Número de palavras-chave mais frequentes a retornar para cada n-grama.
+        df (pd.DataFrame): DataFrame with the articles.
+        top_n (int): Number of most frequent keywords to return for each n-gram.
 
     Returns:
-        tuple: DataFrames para unigramas, bigramas e trigramas.
+        tuple: DataFrames for unigrams, bigrams and trigrams.
     """
     combined_text = " ".join(df["Title"].apply(preprocess_text)) + " " + " ".join(df["Summary"].apply(preprocess_text))
 
@@ -43,47 +43,29 @@ def extract_keywords(df: pd.DataFrame, top_n: int = 10):
 
     return unigrams_df, bigrams_df, trigrams_df
 
-def filter_articles_by_keywords(df: pd.DataFrame, keywords: list):
-    """
-    Filtra artigos que contêm palavras-chave relevantes no título ou resumo. 
-
-    Args:
-        df (pd.DataFrame): DataFrame com os artigos.
-        keywords (list): Lista de palavras-chave relevantes.
-
-    Returns:
-        pd.DataFrame: Apenas os artigos relevantes.
-    """
-    def is_relevant(row):
-        text = (row["Title"] + " " + row["Summary"]).lower()
-        return any(keyword in text for keyword in keywords)
-
-    df["Is_Relevant"] = df.apply(is_relevant, axis=1)
-    return df[df["Is_Relevant"]]
-
 def analyze_publication_trends(df: pd.DataFrame):
     """
-    Analisa a frequência de publicações ao longo do tempo.
+    It analyzes the frequency of publications over time.
 
     Args:
-        df (pd.DataFrame): DataFrame com os artigos.
+        df (pd.DataFrame): DataFrame with the articles.
 
     Returns:
-        pd.DataFrame: Frequência de publicações por ano.
+        pd.DataFrame: Frequency of publications per year.
     """
     df["Published_Year"] = pd.to_datetime(df["Published"]).dt.year
     return df.groupby("Published_Year").size().reset_index(name="Publication_Count")
 
 def top_authors(df, top_n=10):
     """
-    Identifica os autores com mais publicações.
+    Identifies the authors with the most publications.
 
     Args:
-        df (DataFrame): DataFrame com os artigos.
-        top_n (int): Número de autores a listar.
+        df (DataFrame): DataFrame with the articles.
+        top_n (int): Number of authors to list.
 
     Returns:
-        DataFrame: Autores mais frequentes e o número de publicações.
+        DataFrame: Most frequent authors and number of publications.
     """
     authors_series = df["Authors"].str.split(", ").explode()
     author_counts = authors_series.value_counts().head(top_n).reset_index()

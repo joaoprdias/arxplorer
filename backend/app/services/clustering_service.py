@@ -6,14 +6,14 @@ from app.services.text_preprocessing import preprocess_text
 
 def cluster_articles(df: pd.DataFrame, n_clusters: int = 5):
     """
-    Agrupa os artigos em clusters temáticos.
+    Groups articles into thematic clusters.
 
     Args:
-        df (pd.DataFrame): DataFrame com os artigos.
-        n_clusters (int): Número de clusters.
+        df (pd.DataFrame): DataFrame with the articles.
+        n_clusters (int): Number of clusters.
 
     Returns:
-        pd.DataFrame: DataFrame com uma nova coluna "Cluster".
+        pd.DataFrame: DataFrame with a new “Cluster” column.
     """
     df["Processed_Summary"] = df["Summary"].apply(preprocess_text)
 
@@ -26,18 +26,18 @@ def cluster_articles(df: pd.DataFrame, n_clusters: int = 5):
 
 def find_similar_articles_with_url(df: pd.DataFrame, article_url: str, top_n: int = 5):
     """
-    Identifica os artigos mais similares a um artigo específico com base na URL.
+    Identifies the most similar articles to a specific article based on the URL.
 
     Args:
-        df (pd.DataFrame): DataFrame com os artigos.
-        article_url (str): URL do artigo para o qual encontrar similares.
-        top_n (int): Número de artigos similares a retornar.
+        df (pd.DataFrame): DataFrame with the articles.
+        article_url (str): URL of the article for which to find similar ones.
+        top_n (int): Number of similar articles to return.
 
     Returns:
-        pd.DataFrame: DataFrame com os artigos similares, suas pontuações de similaridade e URLs.
+        pd.DataFrame: DataFrame with the similar articles, their similarity scores and URLs.
     """
     if article_url not in df["Link"].values:
-        raise ValueError("A URL fornecida não está no conjunto de dados.")
+        raise ValueError("O URL fornecido não está no conjunto de dados.")
     
     df["Processed_Summary"] = df["Summary"].apply(preprocess_text)
     

@@ -1,4 +1,3 @@
-/* Geral */
 .home-container {
   font-family: "Arial", sans-serif;
   color: #333;
@@ -7,17 +6,17 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Garante que ocupa toda a altura da janela */
+  min-height: 100vh; 
 }
 
-/* Hero Section */
 .home-hero {
   position: relative;
-  flex: 1; /* Faz a seção hero ocupar o espaço disponível */
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   overflow: hidden;
+  width: 100%;
 }
 
 .hero-image {
@@ -26,24 +25,24 @@
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Garante que a imagem cobre toda a área */
+  object-fit: cover; 
   z-index: 1;
 }
 
 .hero-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative; 
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6); /* Overlay escuro para legibilidade */
-  z-index: 2;
+  min-height: 90vh; 
+  background: rgba(0, 0, 0, 0.6);
+  padding: 80px 20px 40px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 40px 20px;
-  gap: 40px; /* Espaçamento entre o texto e os quadros */
+  justify-content: flex-start; 
+  gap: 40px;
+  box-sizing: border-box;
+  z-index: 3;
 }
 
 .hero-content {
@@ -63,19 +62,20 @@
   margin-bottom: 30px;
 }
 
-/* Features Grid (sobre a imagem) */
+
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
   gap: 20px;
-  z-index: 3;
   width: 100%;
   max-width: 1200px;
-  justify-items: center; /* centraliza cada card */
+  padding: 20px; 
+  box-sizing: border-box;
+  justify-items: center;
 }
 
 .feature-card {
-  background-color: rgba(255, 255, 255, 0.9); /* Fundo branco semi-transparente */
+  background-color: rgba(255, 255, 255, 0.9); 
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
@@ -116,14 +116,13 @@
   background-color: #444;
 }
 
-/* Footer */
 .home-footer {
   background-color: #f0f0f0;
   padding: 20px;
   text-align: center;
   color: #777;
   border-top: 1px solid #ddd;
-  flex-shrink: 0; /* Garante que o footer fique fixo no final */
+  flex-shrink: 0; 
 }
 
 .home-footer strong {
